@@ -1,0 +1,57 @@
+import java.util.*;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
+class program431
+{
+    public static void main(String arr[]) 
+    {
+        Scanner sobj = new Scanner(System.in);
+        System.out.println("____________Marvellouse PackerUnpacker CUI Panel____________");
+
+        try
+        {
+            
+            System.out.println("Enter The Name Of Packed File");
+            System.out.println("Packed File Should Be in the Current Directory");
+            //hyamadhe asha file che name thya ji file tumhi packed Keleli ahe;
+
+            String PackedFile = sobj.nextLine();
+
+            File Fpackobj = new File(PackedFile);
+
+            FileInputStream fin = new FileInputStream(Fpackobj);
+
+            if(Fpackobj.exists())
+            {
+                System.out.println("Packed File is There");
+
+                byte Header[] = new byte[100];
+
+                fin.read(Header,0,100);
+
+                String strHeader = new String(Header);
+
+                System.out.println(strHeader);
+
+                String Arr[] = strHeader.split(" ");
+                System.out.println("File name is "+Arr[0]);
+                System.out.println("File size is :" +Arr[1]);
+                        
+            }
+            else
+            {
+                System.out.println("Folder is not present");
+               
+            }
+   
+   
+        }//End Of try
+        catch(Exception obj)
+        {
+            System.out.println("Exception Occured"+obj);
+        }
+        
+        
+    }//end of main
+}//end of class

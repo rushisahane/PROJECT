@@ -1,0 +1,77 @@
+import java.util.*;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+
+class program435
+{
+    public static void main( String arr[]) 
+    {
+        Scanner sobj = new Scanner(System.in);
+        System.out.println("____________Marvellouse PackerUnpacker CUI Panel____________");
+
+        try
+        {
+            
+            System.out.println("Enter the name of packed File");
+            System.out.println("NOTE : Packed File should be int he current dirctory");
+            String PackFile = sobj.nextLine();
+
+
+            File Fpackobj = new File(PackFile);
+            int ret = 0,Count = 0;
+
+            FileInputStream fin = new FileInputStream(Fpackobj);
+
+             byte Header[] = new byte[100];
+
+            if(Fpackobj.exists())
+            {
+               
+
+                while((ret = fin.read(Header,0,100)) > 0)
+                {
+
+                        String strHeader = new String(Header);
+
+                        System.out.println(strHeader);
+
+                        String Arr[] = strHeader.split(" ");
+                        System.out.println("File name is "+Arr[0]);
+                        System.out.println("File size is :" +Arr[1]);
+
+                        File obj = new File(Arr[0]);
+                        obj.createNewFile();
+                        System.out.println("New File Droped With Name : "+Arr[0]);
+
+                        int FileSize = Integer.parseInt(Arr[1]);
+
+                        byte DataArray[] = new byte[FileSize];
+
+                        fin.read(DataArray,0,FileSize);
+
+                        FileOutputStream fout = new FileOutputStream(obj);
+                        fout.write(DataArray,0,FileSize);
+                        Count++;
+                } 
+                System.out.println("_____________________SUMMERY______________________");
+                System.out.println("Number of File Unpacked SuccesFully : "+Count);
+                System.out.println("Thanks For Using Marvellous Packer Unpacker Application");
+                
+                        
+            }
+            else
+            {
+                System.out.println("Folder is not present");
+               
+            }
+   
+   
+        }//End Of try
+        catch(Exception obj)
+        {
+            System.out.println("Exception Occured"+obj);
+        }
+        
+        
+    }//end of main
+}//end of class
